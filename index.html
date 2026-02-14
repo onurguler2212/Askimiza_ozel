@@ -6,158 +6,288 @@
   <title>💖 Şaşırmak sana çok yakışıyor</title>
 
   <style>
+    :root{
+      --bg1:#0b1026;
+      --bg2:#2a0f1f;
+      --card: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --accent:#ff4d88;
+      --accent2:#ffd1dc;
+    }
+
+    *{box-sizing:border-box;}
     body{
       margin:0;
-      min-height:100vh;
+      min-height:100svh;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:linear-gradient(135deg,#2b0f1f,#0b1026);
-      color:white;
-      font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      padding:24px 16px;
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(900px 600px at 15% 10%, rgba(255,77,136,.30), transparent 60%),
+        radial-gradient(800px 520px at 85% 15%, rgba(255,209,220,.18), transparent 62%),
+        radial-gradient(700px 520px at 50% 90%, rgba(140,70,255,.14), transparent 60%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
       overflow:hidden;
     }
 
+    /* yıldız/parıltı */
+    .sparkle{
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,.45), transparent 60%),
+        radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,.35), transparent 60%),
+        radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,.25), transparent 60%);
+      opacity:.7;
+      animation: twinkle 6s ease-in-out infinite;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes twinkle{0%,100%{opacity:.55}50%{opacity:.85}}
+
+    /* Mektup açılınca arkayı blur yapan katman */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease, backdrop-filter .25s ease;
+      z-index:1;
+    }
+    body.letter-open .overlay{
+      opacity:1;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      pointer-events:auto;
+    }
+
     .card{
-      background:rgba(255,255,255,0.12);
-      backdrop-filter:blur(10px);
-      border-radius:24px;
-      padding:28px;
-      max-width:420px;
-      width:min(420px, calc(100% - 32px));
-      text-align:center;
-      box-shadow:0 30px 80px rgba(0,0,0,0.4);
+      width:min(560px, 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
+      border-radius:28px;
+      padding:22px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.38);
+      backdrop-filter: blur(12px);
+      position:relative;
+      z-index:2; /* overlay üstünde kalsın */
+      transition: transform .25s ease;
     }
 
-    /* ===== ANİMASYON (GÜVENLİ) ===== */
-    @keyframes fadeUp{
-      from{opacity:0; transform:translateY(12px);}
-      to{opacity:1; transform:translateY(0);}
+    .top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
     }
 
-    /* ÖNEMLİ: opacity:0 YOK! Animasyon çalışmazsa bile yazılar görünür */
-    .animate{
-      animation: fadeUp 1.4s ease both;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--muted);
+      font-size:13px;
     }
-    .delay-1{animation-delay:.2s}
-    .delay-2{animation-delay:.6s}
-    .delay-3{animation-delay:1s}
-    .delay-4{animation-delay:1.4s}
-    .delay-5{animation-delay:1.8s}
-
-    /* Eğer cihaz animasyonu azaltıyorsa, yine de her şey görünsün */
-    @media (prefers-reduced-motion: reduce){
-      .animate{ animation:none; }
-      .heart{ animation:none; opacity:.9; }
-    }
+    .pill b{color:var(--text)}
 
     h1{
-      font-size:34px;
-      margin:0 0 14px;
+      margin:12px 0 10px;
+      font-size: clamp(26px, 5vw, 36px);
+      letter-spacing:.2px;
+      text-align:center;
+    }
+    .subtitle{
+      margin:0 auto 14px;
+      max-width: 46ch;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.7;
+      font-size: 15px;
     }
 
-    p{
-      line-height:1.7;
-      opacity:.9;
-      margin:0 0 12px;
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+      margin: 14px 0 16px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     button{
-      margin-top:14px;
-      padding:12px 18px;
-      border-radius:14px;
+      flex:1 1 180px;
       border:none;
-      font-size:15px;
       cursor:pointer;
-      width:100%;
-      touch-action:manipulation;
+      padding:12px 14px;
+      border-radius:16px;
+      font-size:15px;
+      touch-action: manipulation;
+      transition: transform .15s ease, filter .15s ease;
     }
+    button:hover{transform: translateY(-1px); filter: brightness(1.03);}
 
-    .play{background:#ffd1dc;color:#1b0b12;}
-    .msg{background:transparent;border:1px solid rgba(255,255,255,.3);color:white;}
+    .primary{
+      background: linear-gradient(135deg, var(--accent2), #fff);
+      color:#1b0b12;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    .secondary{
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.18);
+    }
 
     .hint{
       margin-top:10px;
+      color: rgba(255,255,255,.68);
       font-size:12px;
-      opacity:.75;
       line-height:1.5;
+      text-align:center;
     }
 
-    .note{
+    /* mektup alanı */
+    .letter{
       display:none;
-      margin-top:18px;
-      background:rgba(0,0,0,.25);
-      padding:16px;
-      border-radius:16px;
-      line-height:1.75;
-      animation: fadeUp .8s ease both;
+      margin-top:16px;
+      border-radius:22px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.14);
+      padding:16px 16px 18px;
+      line-height:1.85;
+      position:relative;
+      overflow:hidden;
+      animation: fadeUp .45s ease both;
     }
 
-    .note i{
-      opacity:.85;
-      font-style:italic;
+    .letterHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      color:rgba(255,255,255,.80);
+      font-size:13px;
+    }
+    .stamp{
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.80);
     }
 
+    #typed{
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 15px;
+      color: rgba(255,255,255,.92);
+    }
+
+    .cursor{
+      display:inline-block;
+      width:10px;
+      transform: translateY(2px);
+      margin-left:2px;
+      color: rgba(255,255,255,.85);
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink{ 50%{opacity:0} }
+
+    .sign{
+      margin-top:14px;
+      opacity:.88;
+      font-style: italic;
+      text-align:right;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform: translateY(10px)}
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    /* kalpler */
     .heart{
       position:fixed;
-      bottom:-20px;
+      bottom:-24px;
       font-size:18px;
-      animation:rise linear forwards;
+      animation: floatUp linear forwards;
       pointer-events:none;
-      filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
+      z-index:3;
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(0) translateX(0); opacity:0 }
+      20%{ opacity:.95 }
+      to{ transform: translateY(-120svh) translateX(var(--drift)); opacity:0 }
     }
 
-    @keyframes rise{
-      from{transform:translateY(0);opacity:0}
-      20%{opacity:1}
-      to{transform:translateY(-120vh);opacity:0}
+    @media (max-width:420px){
+      .card{padding:18px;border-radius:24px;}
+      button{flex:1 1 100%;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .sparkle{animation:none}
+      .heart{animation:none}
+      .cursor{animation:none}
     }
   </style>
 </head>
 
 <body>
+  <div class="sparkle"></div>
+
+  <!-- Blur overlay (mektup açılınca aktif) -->
+  <div class="overlay" id="overlay"></div>
 
   <div class="card">
-    <h1 class="animate delay-1">Şaşırmak sana çok yakışıyor 💖</h1>
-
-    <p class="animate delay-2">
-      Seninle geçen her an kalbimde daha da büyüyen bir hikâye gibi…<br>
-      İyi ki varsın. İyi ki benimlesin.
-    </p>
-
-    <button class="play animate delay-3" id="playBtn" onclick="toggleMusic()">
-      🎵 Müziği Başlat
-    </button>
-
-    <button class="msg animate delay-4" onclick="toggleNote()">
-      💌 Mesajını Aç
-    </button>
-
-    <div class="hint animate delay-5">
-      Telefonlar müziği otomatik başlatmaz 🎧<br>
-      Müzik için butona dokunman yeterli (bazen 2. dokunuş gerekebilir).
+    <div class="top">
+      <div class="pill">💌 <b>Sevgililer Günü</b> • İlknur’a</div>
+      <div class="pill" id="musicStatus">🎵 Müzik: <b>Kapalı</b></div>
     </div>
 
-    <div class="note" id="note">
-      Bugün Sevgililer Günüymüş…<br><br>
+    <h1>Şaşırmak sana çok yakışıyor 💖</h1>
+    <p class="subtitle">
+      Bu küçük sayfa; bir gülümseme, bir şarkı ve kalbimden bir mektup.
+    </p>
 
-      Ama benim için <b>25 Ağustos 2024</b>'ten beri <b>her gün</b> Sevgililer Günü.<br>
-      Her günüm ayrı heyecanlı, her anım ayrı huzurlu…<br><br>
+    <div class="divider"></div>
 
-      Her geçen gün biraz daha âşık oluyorum sana.<br>
-      Her gün kendimi seninle biraz daha aşıyorum.<br>
-      Her seferinde seni şaşırtmayı çok seviyorum…<br><br>
+    <div class="actions">
+      <button class="primary" id="playBtn">🎵 Müziği Başlat</button>
+      <button class="secondary" id="openLetterBtn">💌 Mektubu Aç</button>
+      <button class="secondary" id="heartsBtn">❤ Kalpleri Yağdır</button>
+    </div>
 
-      <b>Bu mesajı okurkenki o tatlı gülümsemeni</b><br>
-      <b>ve bir sonraki cümlede ne yazıyor</b> diye merakla pırpır çarpan kalbini duymayı çok seviyorum…<br><br>
+    <div class="hint">
+      Telefonlar müziği otomatik başlatmaz. Müzik için butona dokunman yeterli 🎧
+    </div>
 
-      Sen iyi ki hayatıma girdin, iyi ki hayatımın neşesi oldun.<br><br>
+    <div class="letter" id="letter">
+      <div class="letterHeader">
+        <span>📜 Mektubum</span>
+        <span class="stamp">25.08.2024 → sonsuza</span>
+      </div>
 
-      Sen sevginin en güzel halisin ve iyi ki <b>benimsin</b>.<br><br>
+      <div id="typed"></div><span class="cursor" id="cursor">|</span>
 
-      <b>SENİ ÇOOO..OOOKK SEVİYORUM..</b> 💖<br><br>
-
-      — <i>Sana çok âşık olan adam</i>
+      <div class="sign">— Sana çok âşık olan adam</div>
     </div>
 
     <!-- Mobil uyumlu müzik -->
@@ -168,49 +298,140 @@
 
   <script>
     const bgm = document.getElementById("bgm");
-    const note = document.getElementById("note");
     const playBtn = document.getElementById("playBtn");
+    const musicStatus = document.getElementById("musicStatus");
+    const openLetterBtn = document.getElementById("openLetterBtn");
+    const heartsBtn = document.getElementById("heartsBtn");
+    const letter = document.getElementById("letter");
+    const typed = document.getElementById("typed");
+    const cursor = document.getElementById("cursor");
+    const overlay = document.getElementById("overlay");
 
     let playing = false;
+    let typing = false;
+    let typeTimer = null;
 
-    function toggleMusic(){
-      if(!playing){
-        bgm.muted = false;
-        bgm.volume = 1.0;
-        bgm.play().then(()=>{
-          playing = true;
-          playBtn.textContent = "⏸ Müziği Durdur";
-        }).catch(()=>{
-          alert("🔊 Müzik başlamadı. Lütfen butona bir kez daha dokun 💖");
-        });
-      }else{
-        bgm.pause();
-        playing = false;
-        playBtn.textContent = "🎵 Müziği Başlat";
-      }
+    const letterText =
+`Bugün Sevgililer Günüymüş…
+
+Ama benim için 25 Ağustos 2024’ten beri her gün Sevgililer Günü.
+Her günüm ayrı heyecanlı, her anım ayrı huzurlu…
+
+Her geçen gün sana biraz daha âşık oluyorum.
+Her gün kendimi seninle biraz daha aşıyorum.
+Her seferinde seni şaşırtmayı çok seviyorum…
+
+Bu mesajı okurkenki o tatlı gülümsemeni,
+bir sonraki cümlede ne yazıyor diye merakla pırpır çarpan kalbini duymayı çok seviyorum.
+
+Sen iyi ki hayatıma girdin, iyi ki hayatımın neşesi oldun.
+Sen sevginin en güzel halisin ve iyi ki benimsin.
+
+SENİ ÇOOO..OOOKK SEVİYORUM.. 💖`;
+
+    function setMusicUI(){
+      musicStatus.innerHTML = `🎵 Müzik: <b>${playing ? "Açık" : "Kapalı"}</b>`;
+      playBtn.textContent = playing ? "⏸ Müziği Durdur" : "🎵 Müziği Başlat";
     }
 
-    function toggleNote(){
-      note.style.display = (note.style.display === "block") ? "none" : "block";
-      spawnHearts(10);
+    async function toggleMusic(){
+      try{
+        if(!playing){
+          bgm.muted = false;
+          bgm.volume = 1.0;
+          await bgm.play();
+          playing = true;
+        }else{
+          bgm.pause();
+          playing = false;
+        }
+        setMusicUI();
+      }catch(e){
+        alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
+      }
     }
 
     function spawnHearts(count){
       for(let i=0;i<count;i++){
         const h=document.createElement("div");
         h.className="heart";
-        h.textContent=Math.random()>0.25?"❤":"🤍";
-        h.style.left=Math.random()*100+"vw";
-        h.style.animationDuration=(Math.random()*3+4)+"s";
+        h.textContent = Math.random() > 0.25 ? "❤" : "🤍";
+        h.style.left = Math.random()*100 + "vw";
+        h.style.setProperty("--drift", (Math.random()*120 - 60) + "px");
+        h.style.animationDuration = (Math.random()*3 + 4) + "s";
         document.body.appendChild(h);
-        setTimeout(()=>h.remove(),7000);
+        setTimeout(()=>h.remove(), 8000);
       }
     }
 
-    window.addEventListener("load",()=>{
+    // Kelime kelime yazdırma (mektup gibi)
+    function typeWords(text){
+      if(typing) return;
+      typing = true;
+
+      typed.textContent = "";
+      cursor.style.display = "inline-block";
+
+      const tokens = text.split(/(\s+)/); // boşlukları korur
+      let i = 0;
+
+      const speed = 28; // ms
+
+      function step(){
+        if(letter.style.display !== "block"){
+          typing = false;
+          cursor.style.display = "none";
+          clearTimeout(typeTimer);
+          return;
+        }
+
+        if(i < tokens.length){
+          typed.textContent += tokens[i];
+          i++;
+          const jitter = Math.random() * 22;
+          typeTimer = setTimeout(step, speed + jitter);
+        }else{
+          typing = false;
+          // cursor kalsın (istersen bitince gizleyebilirim)
+        }
+      }
+      step();
+    }
+
+    function openLetter(){
+      letter.style.display = "block";
+      document.body.classList.add("letter-open");
+      spawnHearts(10);
+      typeWords(letterText);
+      openLetterBtn.textContent = "✖ Mektubu Kapat";
+    }
+
+    function closeLetter(){
+      letter.style.display = "none";
+      document.body.classList.remove("letter-open");
+      typing = false;
+      clearTimeout(typeTimer);
+      cursor.style.display = "none";
+      openLetterBtn.textContent = "💌 Mektubu Aç";
+    }
+
+    function toggleLetter(){
+      const isOpen = letter.style.display === "block";
+      if(isOpen) closeLetter();
+      else openLetter();
+    }
+
+    // Overlay'e dokununca mektubu kapat
+    overlay.addEventListener("click", closeLetter);
+
+    playBtn.addEventListener("click", toggleMusic);
+    openLetterBtn.addEventListener("click", toggleLetter);
+    heartsBtn.addEventListener("click", ()=>spawnHearts(18));
+
+    window.addEventListener("load", ()=>{
+      setMusicUI();
       spawnHearts(6);
     });
   </script>
-
 </body>
 </html>
