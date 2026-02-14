@@ -10,6 +10,8 @@
   --text: rgba(255,255,255,.95);
   --muted: rgba(255,255,255,.78);
   --accent:#ffd1dc;
+  --stroke: rgba(255,255,255,.20);
+  --glass: rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 
@@ -31,8 +33,6 @@ body{
   padding:22px 16px 28px;
   overflow:hidden;
 }
-
-/* FOTO + BLUR + IŞIK */
 .hero::before{
   content:"";
   position:absolute; inset:0;
@@ -42,7 +42,6 @@ body{
   filter: blur(2px) saturate(1.1) contrast(1.05);
   transform: scale(1.08);
 }
-
 .hero::after{
   content:"";
   position:absolute; inset:0;
@@ -55,20 +54,29 @@ body{
 /* KART */
 .heroCard{
   position:relative;
-  width:min(760px,100%);
-  background: rgba(0,0,0,.35);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:28px;
+  width:min(780px,100%);
+  background: var(--glass);
+  border:1px solid var(--stroke);
+  border-radius:30px;
   padding:22px 20px 20px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   box-shadow: 0 30px 90px rgba(0,0,0,.45);
   text-align:center;
 }
 
-/* BAŞLIK */
+/* ✅ İSİMLER FADE-IN */
+.fade-in{
+  opacity:0;
+  animation: fadeInUp 2.2s ease forwards;
+}
+@keyframes fadeInUp{
+  from{opacity:0; transform: translateY(12px)}
+  to{opacity:1; transform: translateY(0)}
+}
+
 h1{
-  margin:8px 0 6px;
-  font-size: clamp(30px, 7vw, 46px);
+  margin:10px 0 6px;
+  font-size: clamp(30px, 7vw, 48px);
   letter-spacing:.4px;
 }
 .date{
@@ -77,32 +85,43 @@ h1{
   color:var(--muted);
 }
 
-/* BUTONLAR */
+/* ✅ PROFESYONEL BUTONLAR */
 .btnRow{
   display:flex;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
+  justify-content:center;
 }
-button{
-  flex:1 1 200px;
+.btn{
+  flex:1 1 240px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   padding:14px 16px;
   border-radius:18px;
-  border:none;
+  border:1px solid rgba(255,255,255,.18);
   cursor:pointer;
   font-size:15px;
-  transition:.15s ease;
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
 }
-button:hover{transform:translateY(-1px)}
+.btn:active{transform: translateY(1px) scale(.99);}
 
-.primary{
+.btnPrimary{
   background: linear-gradient(135deg,var(--accent),#fff);
   color:#1b0b12;
+  border:none;
   box-shadow: 0 14px 36px rgba(0,0,0,.35);
 }
-.secondary{
+.btnGhost{
   background: rgba(255,255,255,.12);
   color: var(--text);
-  border:1px solid rgba(255,255,255,.22);
+}
+
+.icon{
+  width:18px;height:18px;display:inline-block;
 }
 
 /* OVERLAY + MODAL */
@@ -121,12 +140,12 @@ body.open .overlay{opacity:1;pointer-events:auto;}
   left:50%; top:50%;
   transform: translate(-50%,-50%) scale(.96);
   width:min(860px,calc(100% - 26px));
-  background: rgba(10,10,20,.75);
+  background: rgba(10,10,20,.78);
   border:1px solid rgba(255,255,255,.18);
   border-radius:28px;
   box-shadow: 0 30px 90px rgba(0,0,0,.55);
   backdrop-filter: blur(16px);
-  padding:16px;
+  padding:14px;
   opacity:0; pointer-events:none;
   transition:.25s ease;
   z-index:20;
@@ -141,14 +160,32 @@ body.open .modal{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-bottom:10px;
+  gap:10px;
+  padding:6px 6px 12px;
 }
-.close{
-  background: rgba(255,255,255,.12);
-  color:white;
-  border:1px solid rgba(255,255,255,.22);
+
+/* ✅ “Mektubum” daha premium: badge */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
   border-radius:999px;
-  padding:10px 14px;
+  background: rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.88);
+  font-weight:600;
+}
+
+.close{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: rgba(255,255,255,.10);
+  color:white;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  padding:10px 12px;
   cursor:pointer;
 }
 
@@ -156,7 +193,7 @@ body.open .modal{
 .envelope{
   position:relative;
   width:min(520px,100%);
-  margin:10px auto 0;
+  margin:8px auto 0;
   height:220px;
 }
 .env-body{
@@ -201,15 +238,6 @@ body.open .paper{transform:translateY(-10px)}
 @keyframes blink{50%{opacity:0}}
 .sign{text-align:right;font-style:italic;margin-top:10px}
 
-/* ✅ İSİMLER FADE-IN */
-.fade-in{
-  opacity:0;
-  animation: fadeInUp 2.2s ease forwards;
-}
-@keyframes fadeInUp{
-  from{opacity:0; transform: translateY(12px)}
-  to{opacity:1; transform: translateY(0)}
-}
 </style>
 </head>
 
@@ -221,8 +249,22 @@ body.open .paper{transform:translateY(-10px)}
     <div class="date">25.08.2024 → sonsuza</div>
 
     <div class="btnRow">
-      <button class="primary" id="playBtn">🎵 Müziği Başlat</button>
-      <button class="secondary" id="openBtn">💌 Mektubu Aç</button>
+      <div class="btn btnPrimary" id="playBtn">
+        <!-- play icon -->
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <path d="M8 5v14l11-7-11-7Z" fill="currentColor"/>
+        </svg>
+        <span id="playText">Şarkımızı Aç</span>
+      </div>
+
+      <div class="btn btnGhost" id="openBtn">
+        <!-- letter icon -->
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2"/>
+          <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Mektubu Oku
+      </div>
     </div>
   </div>
 </div>
@@ -231,8 +273,20 @@ body.open .paper{transform:translateY(-10px)}
 
 <div class="modal" id="modal">
   <div class="modalTop">
-    <strong>📜 Mektubum</strong>
-    <button class="close" id="closeBtn">✖ Kapat</button>
+    <div class="badge">
+      <!-- small pen icon -->
+      <svg class="icon" viewBox="0 0 24 24" fill="none">
+        <path d="M4 20h4l10.5-10.5a2 2 0 0 0 0-3L16.5 4a2 2 0 0 0-3 0L3 14.5V20Z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Mektubum
+    </div>
+
+    <button class="close" id="closeBtn">
+      <svg class="icon" viewBox="0 0 24 24" fill="none">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Kapat
+    </button>
   </div>
 
   <div class="envelope">
@@ -258,6 +312,7 @@ body.open .paper{transform:translateY(-10px)}
 <script>
 const bgm=document.getElementById("bgm");
 const playBtn=document.getElementById("playBtn");
+const playText=document.getElementById("playText");
 const openBtn=document.getElementById("openBtn");
 const closeBtn=document.getElementById("closeBtn");
 const overlay=document.getElementById("overlay");
@@ -292,8 +347,8 @@ function typeSlow(){
     if(!document.body.classList.contains("open")){typing=false;return}
     if(i<parts.length){
       typed.textContent+=parts[i++];
-      /* ✅ Daha yavaş */
-      timer=setTimeout(step,140+Math.random()*80);
+      // ✅ daha yavaş
+      timer=setTimeout(step,150+Math.random()*90);
     }
   }
   step();
@@ -306,11 +361,12 @@ playBtn.onclick=async()=>{
       bgm.volume=1.0;
       await bgm.play();
       playing=true;
-      playBtn.textContent="⏸ Müziği Durdur";
+      playText.textContent="Şarkımızı Durdur";
+      // ikon play->pause (basitçe text yeterli, istersen iconu da değiştiririm)
     }else{
       bgm.pause();
       playing=false;
-      playBtn.textContent="🎵 Müziği Başlat";
+      playText.textContent="Şarkımızı Aç";
     }
   }catch(e){
     alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
