@@ -1,351 +1,271 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>💖 Aşkımızın Sitesi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>💖 Aşkımızın Sitesi</title>
 
-  <style>
-    :root{
-      --bg:#0b1026;
-      --card: rgba(255,255,255,.10);
-      --stroke: rgba(255,255,255,.18);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --accent:#ffd1dc;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(900px 600px at 20% 0%, rgba(255,77,136,.20), transparent 60%),
-                  radial-gradient(700px 520px at 85% 30%, rgba(140,70,255,.14), transparent 60%),
-                  linear-gradient(180deg,#070a16,#0b1026);
-      color:var(--text);
-      overflow-x:hidden;
-    }
+<style>
+:root{
+  --text: rgba(255,255,255,.95);
+  --muted: rgba(255,255,255,.78);
+  --accent:#ffd1dc;
+}
+*{box-sizing:border-box}
 
-    /* HERO */
-    .hero{
-      position:relative;
-      min-height: 72svh;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      padding: 22px 16px 28px;
-      overflow:hidden;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.70)),
-        url("cover.jpg") center/cover no-repeat; /* ✅ BURAYA FOTO */
-      filter: saturate(1.05) contrast(1.05);
-      transform: scale(1.02);
-    }
-    .hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(700px 420px at 50% 20%, rgba(255,209,220,.18), transparent 60%);
-      pointer-events:none;
-    }
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:#0b1026;
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-    .heroCard{
-      position:relative;
-      width:min(780px, 100%);
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:28px;
-      padding:18px 18px 16px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 28px 80px rgba(0,0,0,.35);
-      text-align:center;
-    }
+/* HERO */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:22px 16px 28px;
+  overflow:hidden;
+}
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.14);
-      color:rgba(255,255,255,.82);
-      font-size:13px;
-    }
+/* FOTO + BLUR + IŞIK */
+.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.75)),
+    url("cover.jpg") center/cover no-repeat;
+  filter: blur(2px) saturate(1.1) contrast(1.05);
+  transform: scale(1.08);
+}
 
-    h1{
-      margin:14px 0 8px;
-      font-size: clamp(28px, 6vw, 44px);
-      letter-spacing:.2px;
-    }
-    .date{
-      margin:0 0 12px;
-      color:rgba(255,255,255,.80);
-      font-size:15px;
-    }
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(600px 400px at 50% 25%, rgba(255,209,220,.35), transparent 60%),
+    radial-gradient(800px 600px at 50% 80%, rgba(140,70,255,.18), transparent 65%);
+  pointer-events:none;
+}
 
-    .btnRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    button{
-      flex:1 1 190px;
-      padding:14px 14px;
-      border-radius:16px;
-      border:none;
-      cursor:pointer;
-      font-size:15px;
-      touch-action: manipulation;
-      transition: transform .15s ease, filter .15s ease;
-    }
-    button:hover{transform:translateY(-1px);filter:brightness(1.03)}
-    .primary{
-      background: linear-gradient(135deg,var(--accent),#fff);
-      color:#1b0b12;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-    }
-    .secondary{
-      background: rgba(255,255,255,.10);
-      color: var(--text);
-      border:1px solid rgba(255,255,255,.18);
-    }
+/* KART */
+.heroCard{
+  position:relative;
+  width:min(760px,100%);
+  background: rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:28px;
+  padding:22px 20px 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 30px 90px rgba(0,0,0,.45);
+  text-align:center;
+}
 
-    /* CONTENT */
-    .container{
-      width:min(920px, 100%);
-      margin: 18px auto 60px;
-      padding: 0 16px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width: 840px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
-    @media (max-width: 520px){ .grid{grid-template-columns: 1fr;} }
+/* BAŞLIK */
+h1{
+  margin:8px 0 6px;
+  font-size: clamp(30px, 7vw, 46px);
+  letter-spacing:.4px;
+}
+.date{
+  margin:0 0 14px;
+  font-size:15px;
+  color:var(--muted);
+}
 
-    .tile{
-      background: var(--card);
-      border:1px solid var(--stroke);
-      border-radius:22px;
-      padding:16px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 18px 55px rgba(0,0,0,.25);
-    }
-    .tile h3{margin:0 0 6px}
-    .tile p{margin:0;color:var(--muted);line-height:1.6}
+/* BUTONLAR */
+.btnRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+button{
+  flex:1 1 200px;
+  padding:14px 16px;
+  border-radius:18px;
+  border:none;
+  cursor:pointer;
+  font-size:15px;
+  transition:.15s ease;
+}
+button:hover{transform:translateY(-1px)}
 
-    /* LETTER MODAL */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.40);
-      backdrop-filter: blur(6px);
-      opacity:0; pointer-events:none;
-      transition: .25s ease;
-      z-index:50;
-    }
-    body.open .overlay{opacity:1;pointer-events:auto;}
+.primary{
+  background: linear-gradient(135deg,var(--accent),#fff);
+  color:#1b0b12;
+  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+}
+.secondary{
+  background: rgba(255,255,255,.12);
+  color: var(--text);
+  border:1px solid rgba(255,255,255,.22);
+}
 
-    .modal{
-      position:fixed;
-      left:50%; top:55%;
-      transform: translate(-50%,-50%) scale(.98);
-      width:min(860px, calc(100% - 26px));
-      background: rgba(10,10,20,.70);
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:26px;
-      box-shadow: 0 28px 80px rgba(0,0,0,.45);
-      backdrop-filter: blur(14px);
-      padding:16px;
-      opacity:0; pointer-events:none;
-      transition:.25s ease;
-      z-index:60;
-    }
-    body.open .modal{opacity:1;pointer-events:auto; top:50%; transform: translate(-50%,-50%) scale(1);}
+/* OVERLAY + MODAL */
+.overlay{
+  position:fixed; inset:0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  opacity:0; pointer-events:none;
+  transition:.25s ease;
+  z-index:10;
+}
+body.open .overlay{opacity:1;pointer-events:auto;}
 
-    .modalTop{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:6px 6px 10px;
-    }
-    .close{
-      background: rgba(255,255,255,.10);
-      color:var(--text);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:999px;
-      padding:10px 12px;
-      cursor:pointer;
-      flex:0 0 auto;
-    }
+.modal{
+  position:fixed;
+  left:50%; top:50%;
+  transform: translate(-50%,-50%) scale(.96);
+  width:min(860px,calc(100% - 26px));
+  background: rgba(10,10,20,.75);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+  backdrop-filter: blur(16px);
+  padding:16px;
+  opacity:0; pointer-events:none;
+  transition:.25s ease;
+  z-index:20;
+}
+body.open .modal{
+  opacity:1;
+  pointer-events:auto;
+  transform: translate(-50%,-50%) scale(1);
+}
 
-    /* Envelope inside modal */
-    .letterStage{
-      border-radius:22px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      padding:14px;
-    }
-    .envelope{
-      position:relative;
-      width:min(520px, 100%);
-      margin: 10px auto 0;
-      height: 210px;
-    }
-    .env-body{
-      position:absolute; inset:0;
-      border-radius:18px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.16);
-      overflow:hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,.25);
-    }
-    .env-bottom{
-      position:absolute; left:0; right:0; bottom:0; height:0;
-      border-left:260px solid transparent;
-      border-right:260px solid transparent;
-      border-top:130px solid rgba(255,255,255,.10);
-      transform: translateY(30px);
-    }
-    .env-flap{
-      position:absolute; left:0; right:0; top:0; height:0;
-      border-left:260px solid transparent;
-      border-right:260px solid transparent;
-      border-bottom:130px solid rgba(255,255,255,.14);
-      transform-origin: top center;
-      transform: rotateX(0deg);
-      transition: transform .7s ease;
-      filter: drop-shadow(0 8px 8px rgba(0,0,0,.2));
-    }
-    .paper{
-      position:absolute; left:12px; right:12px; bottom:14px;
-      height: 170px;
-      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.10));
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:14px;
-      transform: translateY(80px);
-      transition: transform .9s cubic-bezier(.2,.9,.2,1);
-      overflow:hidden;
-    }
-    body.open .env-flap{ transform: rotateX(180deg); }
-    body.open .paper{ transform: translateY(-10px); }
+.modalTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:10px;
+}
+.close{
+  background: rgba(255,255,255,.12);
+  color:white;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;
+  padding:10px 14px;
+  cursor:pointer;
+}
 
-    .paperInner{
-      height:100%;
-      overflow:auto;
-      padding:14px 14px 16px;
-      line-height:1.85;
-      color: rgba(255,255,255,.92);
-    }
-    #typed{white-space: pre-wrap; word-break: break-word;}
-    .cursor{animation: blink 1s steps(1) infinite;}
-    @keyframes blink{50%{opacity:0}}
-    .sign{margin-top:12px;text-align:right;font-style:italic;opacity:.9}
+/* MEKTUP – ZARF */
+.envelope{
+  position:relative;
+  width:min(520px,100%);
+  margin:10px auto 0;
+  height:220px;
+}
+.env-body{
+  position:absolute; inset:0;
+  border-radius:20px;
+  background: rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.20);
+  overflow:hidden;
+}
+.env-bottom{
+  position:absolute; left:0; right:0; bottom:0;
+  border-left:260px solid transparent;
+  border-right:260px solid transparent;
+  border-top:130px solid rgba(255,255,255,.12);
+}
+.env-flap{
+  position:absolute; left:0; right:0; top:0;
+  border-left:260px solid transparent;
+  border-right:260px solid transparent;
+  border-bottom:130px solid rgba(255,255,255,.18);
+  transform-origin: top;
+  transition:.8s;
+}
+.paper{
+  position:absolute;
+  left:14px; right:14px; bottom:16px;
+  height:170px;
+  background: rgba(255,255,255,.16);
+  border-radius:14px;
+  transform: translateY(90px);
+  transition:.9s cubic-bezier(.2,.9,.2,1);
+  overflow:auto;
+}
+.paperInner{
+  padding:14px;
+  line-height:1.85;
+}
+body.open .env-flap{transform:rotateX(180deg)}
+body.open .paper{transform:translateY(-10px)}
 
-    /* Falling petals/hearts */
-    .petal{
-      position:fixed;
-      top:-24px;
-      font-size:18px;
-      pointer-events:none;
-      z-index:5;
-      animation: fall linear forwards;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.25));
-    }
-    @keyframes fall{
-      from{transform: translateY(-10px) translateX(0) rotate(0deg); opacity:0}
-      10%{opacity:.95}
-      to{transform: translateY(110svh) translateX(var(--drift)) rotate(360deg); opacity:0}
-    }
+.cursor{animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+.sign{text-align:right;font-style:italic;margin-top:10px}
 
-    @media (max-width:540px){
-      .env-bottom,.env-flap{border-left-width: 190px;border-right-width: 190px;}
-      .envelope{height: 190px;}
-    }
-  </style>
+/* ✅ İSİMLER FADE-IN */
+.fade-in{
+  opacity:0;
+  animation: fadeInUp 2.2s ease forwards;
+}
+@keyframes fadeInUp{
+  from{opacity:0; transform: translateY(12px)}
+  to{opacity:1; transform: translateY(0)}
+}
+</style>
 </head>
+
 <body>
 
-  <div class="hero">
-    <div class="heroCard">
-      <div class="badge">💞 Aşkımızın Sitesi</div>
-      <h1>Onur & İlknur</h1>
-      <div class="date">25.08.2024 → sonsuza</div>
+<div class="hero">
+  <div class="heroCard">
+    <h1 class="fade-in">Onur & İlknur</h1>
+    <div class="date">25.08.2024 → sonsuza</div>
 
-      <div class="btnRow">
-        <button class="primary" id="playBtn">🎵 Müziği Başlat</button>
-        <button class="secondary" id="openBtn">💌 Mektubu Aç</button>
-      </div>
+    <div class="btnRow">
+      <button class="primary" id="playBtn">🎵 Müziği Başlat</button>
+      <button class="secondary" id="openBtn">💌 Mektubu Aç</button>
     </div>
   </div>
+</div>
 
-  <div class="container">
-    <div class="grid">
-      <div class="tile">
-        <h3>💌 Mektup</h3>
-        <p>Kalbimden sana… kelime kelime.</p>
-      </div>
-      <div class="tile">
-        <h3>📸 Fotoğraflar</h3>
-        <p>Birlikte biriktirdiğimiz anlar.</p>
-      </div>
-      <div class="tile">
-        <h3>🎶 Şarkımız</h3>
-        <p>Her şeyin fonunda “Hânımefendi”.</p>
-      </div>
-    </div>
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="modal">
+  <div class="modalTop">
+    <strong>📜 Mektubum</strong>
+    <button class="close" id="closeBtn">✖ Kapat</button>
   </div>
 
-  <div class="overlay" id="overlay"></div>
+  <div class="envelope">
+    <div class="env-body">
+      <div class="env-bottom"></div>
 
-  <div class="modal" id="modal">
-    <div class="modalTop">
-      <div class="badge">📜 Mektubum</div>
-      <button class="close" id="closeBtn">✖ Kapat</button>
-    </div>
-
-    <div class="letterStage">
-      <div class="envelope">
-        <div class="env-body">
-          <div class="env-bottom"></div>
-
-          <div class="paper">
-            <div class="paperInner">
-              <span id="typed"></span><span class="cursor" id="cursor">|</span>
-              <div class="sign">— Sana çok âşık olan adam</div>
-            </div>
-          </div>
-
-          <div class="env-flap"></div>
+      <div class="paper">
+        <div class="paperInner">
+          <span id="typed"></span><span class="cursor">|</span>
+          <div class="sign">— Sana çok âşık olan adam</div>
         </div>
       </div>
+
+      <div class="env-flap"></div>
     </div>
   </div>
+</div>
 
-  <audio id="bgm" loop muted playsinline preload="auto">
-    <source src="hanimefendi.mp3" type="audio/mpeg">
-  </audio>
+<audio id="bgm" loop muted playsinline>
+  <source src="hanimefendi.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-  const bgm = document.getElementById("bgm");
-  const playBtn = document.getElementById("playBtn");
-  const openBtn = document.getElementById("openBtn");
-  const closeBtn = document.getElementById("closeBtn");
-  const overlay = document.getElementById("overlay");
-  const modal = document.getElementById("modal");
-  const typed = document.getElementById("typed");
-  const cursor = document.getElementById("cursor");
+const bgm=document.getElementById("bgm");
+const playBtn=document.getElementById("playBtn");
+const openBtn=document.getElementById("openBtn");
+const closeBtn=document.getElementById("closeBtn");
+const overlay=document.getElementById("overlay");
+const typed=document.getElementById("typed");
 
-  let playing = false;
-  let typing = false;
-  let timer = null;
+let playing=false,typing=false,timer=null;
 
-  const letterText =
-`Bugün Sevgililer Günüymüş…
+const text=`Bugün Sevgililer Günüymüş…
 
 Ama benim için 25 Ağustos 2024’ten beri her gün Sevgililer Günü.
 Her günüm ayrı heyecanlı, her anım ayrı huzurlu…
@@ -362,124 +282,55 @@ Sen sevginin en güzel halisin ve iyi ki benimsin.
 
 SENİ ÇOOO..OOOKK SEVİYORUM.. 💖`;
 
-  function spawnPetals(count){
-    const emojis = ["🌹","❤","🤍","🌸"];
-    for(let i=0;i<count;i++){
-      const p = document.createElement("div");
-      p.className = "petal";
-      p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      p.style.left = Math.random()*100 + "vw";
-      p.style.setProperty("--drift", (Math.random()*140 - 70) + "px");
-      p.style.animationDuration = (Math.random()*3 + 6) + "s";
-      p.style.fontSize = (Math.random()*10 + 16) + "px";
-      document.body.appendChild(p);
-      setTimeout(()=>p.remove(), 10000);
+function typeSlow(){
+  if(typing) return;
+  typing=true;
+  typed.textContent="";
+  const parts=text.split(/(\s+)/);
+  let i=0;
+  function step(){
+    if(!document.body.classList.contains("open")){typing=false;return}
+    if(i<parts.length){
+      typed.textContent+=parts[i++];
+      /* ✅ Daha yavaş */
+      timer=setTimeout(step,140+Math.random()*80);
     }
   }
+  step();
+}
 
-  // otomatik yapraklar (buton yok)
-  setInterval(()=>spawnPetals(2), 1200);
-  window.addEventListener("load", ()=>spawnPetals(8));
-
-  function playPaperRustle(){
-    try{
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AudioCtx();
-
-      const duration = 0.55;
-      const bufferSize = Math.floor(ctx.sampleRate * duration);
-      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1);
-
-      const source = ctx.createBufferSource();
-      source.buffer = buffer;
-
-      const bandpass = ctx.createBiquadFilter();
-      bandpass.type = "bandpass";
-      bandpass.frequency.value = 1800;
-      bandpass.Q.value = 0.9;
-
-      const gain = ctx.createGain();
-      const now = ctx.currentTime;
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.06, now + 0.22);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-      source.connect(bandpass);
-      bandpass.connect(gain);
-      gain.connect(ctx.destination);
-
-      source.start(now);
-      source.stop(now + duration);
-      source.onended = ()=>{ try{ ctx.close(); }catch(_){} };
-    }catch(e){}
-  }
-
-  function typeWords(text){
-    if(typing) return;
-    typing = true;
-    typed.textContent = "";
-    cursor.style.display = "inline-block";
-
-    const tokens = text.split(/(\s+)/);
-    let i = 0;
-
-    const baseSpeed = 70; // daha yavaş, daha okunur
-
-    function step(){
-      if(!document.body.classList.contains("open")){
-        typing=false; cursor.style.display="none";
-        clearTimeout(timer);
-        return;
-      }
-      if(i < tokens.length){
-        typed.textContent += tokens[i++];
-        timer = setTimeout(step, baseSpeed + Math.random()*50);
-      }else{
-        typing = false;
-      }
+playBtn.onclick=async()=>{
+  try{
+    if(!playing){
+      bgm.muted=false;
+      bgm.volume=1.0;
+      await bgm.play();
+      playing=true;
+      playBtn.textContent="⏸ Müziği Durdur";
+    }else{
+      bgm.pause();
+      playing=false;
+      playBtn.textContent="🎵 Müziği Başlat";
     }
-    step();
+  }catch(e){
+    alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
   }
+};
 
-  async function toggleMusic(){
-    try{
-      if(!playing){
-        bgm.muted = false;
-        bgm.volume = 1.0;
-        await bgm.play();
-        playing = true;
-        playBtn.textContent = "⏸ Müziği Durdur";
-      }else{
-        bgm.pause();
-        playing = false;
-        playBtn.textContent = "🎵 Müziği Başlat";
-      }
-    }catch(e){
-      alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
-    }
-  }
+openBtn.onclick=()=>{
+  document.body.classList.add("open");
+  typeSlow();
+};
 
-  function openLetter(){
-    document.body.classList.add("open");
-    playPaperRustle();
-    spawnPetals(14);
-    typeWords(letterText);
-  }
+function closeModal(){
+  document.body.classList.remove("open");
+  typing=false;
+  clearTimeout(timer);
+}
 
-  function closeLetter(){
-    document.body.classList.remove("open");
-    typing = false;
-    clearTimeout(timer);
-    cursor.style.display = "none";
-  }
-
-  playBtn.addEventListener("click", toggleMusic);
-  openBtn.addEventListener("click", openLetter);
-  closeBtn.addEventListener("click", closeLetter);
-  overlay.addEventListener("click", closeLetter);
+closeBtn.onclick=closeModal;
+overlay.onclick=closeModal;
 </script>
+
 </body>
 </html>
