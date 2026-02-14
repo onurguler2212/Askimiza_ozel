@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>💖 Aşkımızın Sitesi</title>
 
 <style>
@@ -54,11 +54,11 @@ body{
 /* KART */
 .heroCard{
   position:relative;
-  width:min(780px,100%);
+  width:min(820px,100%);
   background: var(--glass);
   border:1px solid var(--stroke);
   border-radius:30px;
-  padding:22px 20px 20px;
+  padding:22px 20px 18px;
   backdrop-filter: blur(14px);
   box-shadow: 0 30px 90px rgba(0,0,0,.45);
   text-align:center;
@@ -80,48 +80,140 @@ h1{
   letter-spacing:.4px;
 }
 .date{
-  margin:0 0 14px;
+  margin:0 0 10px;
   font-size:15px;
   color:var(--muted);
 }
 
-/* ✅ PROFESYONEL BUTONLAR */
-.btnRow{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  justify-content:center;
+/* ✅ SAYAÇ */
+.counterWrap{
+  margin: 10px auto 14px;
+  width: min(760px, 100%);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 20px;
+  padding: 12px 12px 10px;
 }
-.btn{
-  flex:1 1 240px;
-  display:inline-flex;
+.counterTitle{
+  font-size: 13px;
+  color: rgba(255,255,255,.82);
+  margin: 0 0 10px;
+  display:flex;
   align-items:center;
   justify-content:center;
+  gap:8px;
+}
+.counterGrid{
+  display:grid;
+  grid-template-columns: repeat(6, minmax(0,1fr));
   gap:10px;
-  padding:14px 16px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.18);
-  cursor:pointer;
-  font-size:15px;
-  transition: transform .15s ease, filter .15s ease, background .15s ease;
-  user-select:none;
-  -webkit-tap-highlight-color: transparent;
 }
-.btn:active{transform: translateY(1px) scale(.99);}
+@media (max-width: 720px){
+  .counterGrid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 360px){
+  .counterGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+.unit{
+  background: rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;
+  padding:10px 8px;
+}
+.num{
+  font-variant-numeric: tabular-nums;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.lab{
+  margin-top:4px;
+  font-size: 12px;
+  color: rgba(255,255,255,.72);
+}
 
-.btnPrimary{
-  background: linear-gradient(135deg,var(--accent),#fff);
-  color:#1b0b12;
+/* =========================
+   ✅ BUTONLAR (ÖRNEK GİBİ)
+   ========================= */
+.btnStack{
+  display:grid;
+  gap:12px;
+  width:min(620px, 100%);
+  margin: 8px auto 2px;
+}
+
+.pillBtn{
+  width:100%;
   border:none;
-  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+  cursor:pointer;
+  padding:16px 18px;
+  border-radius:999px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.2px;
+
+  transition: transform .12s ease, filter .12s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select:none;
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.25);
 }
-.btnGhost{
-  background: rgba(255,255,255,.12);
-  color: var(--text);
+.pillBtn:active{
+  transform: translateY(1px) scale(.995);
+  filter: brightness(.98);
 }
 
-.icon{
-  width:18px;height:18px;display:inline-block;
+.pillBtn .leftIcon{
+  position:absolute;
+  left:14px;
+  width:40px;height:40px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+.pillBtn .label{
+  padding-left:12px; /* ikon solda olduğu için */
+}
+
+.pillPrimary{
+  background: linear-gradient(135deg, rgba(255,209,220,1), rgba(255,255,255,1));
+  color:#1b0b12;
+}
+.pillPrimary .leftIcon{
+  background: rgba(0,0,0,.08);
+  border:1px solid rgba(0,0,0,.10);
+  color:#1b0b12;
+}
+
+.pillGlass{
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+.pillGlass .leftIcon{
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+}
+
+.hint{
+  margin-top:10px;
+  font-size:12px;
+  color: rgba(255,255,255,.70);
+  line-height:1.5;
 }
 
 /* OVERLAY + MODAL */
@@ -164,7 +256,7 @@ body.open .modal{
   padding:6px 6px 12px;
 }
 
-/* ✅ “Mektubum” daha premium: badge */
+/* “Mektubum” badge */
 .badge{
   display:inline-flex;
   align-items:center;
@@ -227,45 +319,49 @@ body.open .modal{
   transition:.9s cubic-bezier(.2,.9,.2,1);
   overflow:auto;
 }
-.paperInner{
-  padding:14px;
-  line-height:1.85;
-}
+.paperInner{padding:14px; line-height:1.85;}
 body.open .env-flap{transform:rotateX(180deg)}
 body.open .paper{transform:translateY(-10px)}
 
 .cursor{animation:blink 1s infinite}
 @keyframes blink{50%{opacity:0}}
 .sign{text-align:right;font-style:italic;margin-top:10px}
-
 </style>
 </head>
 
 <body>
-
 <div class="hero">
   <div class="heroCard">
     <h1 class="fade-in">Onur & İlknur</h1>
     <div class="date">25.08.2024 → sonsuza</div>
 
-    <div class="btnRow">
-      <div class="btn btnPrimary" id="playBtn">
-        <!-- play icon -->
-        <svg class="icon" viewBox="0 0 24 24" fill="none">
-          <path d="M8 5v14l11-7-11-7Z" fill="currentColor"/>
-        </svg>
-        <span id="playText">Şarkımızı Aç</span>
-      </div>
-
-      <div class="btn btnGhost" id="openBtn">
-        <!-- letter icon -->
-        <svg class="icon" viewBox="0 0 24 24" fill="none">
-          <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2"/>
-          <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/>
-        </svg>
-        Mektubu Oku
+    <!-- Sayaç -->
+    <div class="counterWrap" aria-label="Birlikte geçen süre sayacı">
+      <div class="counterTitle">⏳ Birlikte geçen zaman</div>
+      <div class="counterGrid">
+        <div class="unit"><div class="num" id="yy">0</div><div class="lab">Yıl</div></div>
+        <div class="unit"><div class="num" id="mo">0</div><div class="lab">Ay</div></div>
+        <div class="unit"><div class="num" id="dd">0</div><div class="lab">Gün</div></div>
+        <div class="unit"><div class="num" id="hh">00</div><div class="lab">Saat</div></div>
+        <div class="unit"><div class="num" id="mm">00</div><div class="lab">Dakika</div></div>
+        <div class="unit"><div class="num" id="ss">00</div><div class="lab">Saniye</div></div>
       </div>
     </div>
+
+    <!-- ✅ Butonlar (örnek gibi) -->
+    <div class="btnStack">
+      <button class="pillBtn pillPrimary" id="playBtn" type="button">
+        <span class="leftIcon" aria-hidden="true">🎵</span>
+        <span class="label" id="playText">Şarkımızı Aç</span>
+      </button>
+
+      <button class="pillBtn pillGlass" id="openBtn" type="button">
+        <span class="leftIcon" aria-hidden="true">💌</span>
+        <span class="label">Mektubu Oku</span>
+      </button>
+    </div>
+
+    <div class="hint">Telefonlar müziği otomatik başlatmaz. Şarkımız için butona dokunman yeterli 🎧</div>
   </div>
 </div>
 
@@ -273,20 +369,8 @@ body.open .paper{transform:translateY(-10px)}
 
 <div class="modal" id="modal">
   <div class="modalTop">
-    <div class="badge">
-      <!-- small pen icon -->
-      <svg class="icon" viewBox="0 0 24 24" fill="none">
-        <path d="M4 20h4l10.5-10.5a2 2 0 0 0 0-3L16.5 4a2 2 0 0 0-3 0L3 14.5V20Z" stroke="currentColor" stroke-width="2"/>
-      </svg>
-      Mektubum
-    </div>
-
-    <button class="close" id="closeBtn">
-      <svg class="icon" viewBox="0 0 24 24" fill="none">
-        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2"/>
-      </svg>
-      Kapat
-    </button>
+    <div class="badge">📜 Mektubum</div>
+    <button class="close" id="closeBtn" type="button">✖ Kapat</button>
   </div>
 
   <div class="envelope">
@@ -306,21 +390,42 @@ body.open .paper{transform:translateY(-10px)}
 </div>
 
 <audio id="bgm" loop muted playsinline>
-  <source src="hanimefendi.mp3" type="audio/mpeg">
+  <source src="hanimefendi.mp3" type="audio/mpeg" />
 </audio>
 
 <script>
-const bgm=document.getElementById("bgm");
-const playBtn=document.getElementById("playBtn");
-const playText=document.getElementById("playText");
-const openBtn=document.getElementById("openBtn");
-const closeBtn=document.getElementById("closeBtn");
-const overlay=document.getElementById("overlay");
-const typed=document.getElementById("typed");
+  // 🎶 Müzik
+  const bgm = document.getElementById("bgm");
+  const playBtn = document.getElementById("playBtn");
+  const playText = document.getElementById("playText");
+  let playing = false;
 
-let playing=false,typing=false,timer=null;
+  playBtn.onclick = async () => {
+    try{
+      if(!playing){
+        bgm.muted = false;
+        bgm.volume = 1.0;
+        await bgm.play();
+        playing = true;
+        playText.textContent = "Şarkımızı Durdur";
+      }else{
+        bgm.pause();
+        playing = false;
+        playText.textContent = "Şarkımızı Aç";
+      }
+    }catch(e){
+      alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
+    }
+  };
 
-const text=`Bugün Sevgililer Günüymüş…
+  // 💌 Mektup (yavaş yazı)
+  const openBtn = document.getElementById("openBtn");
+  const closeBtn = document.getElementById("closeBtn");
+  const overlay = document.getElementById("overlay");
+  const typed = document.getElementById("typed");
+  let typing=false, timer=null;
+
+  const text = `Bugün Sevgililer Günüymüş…
 
 Ama benim için 25 Ağustos 2024’ten beri her gün Sevgililer Günü.
 Her günüm ayrı heyecanlı, her anım ayrı huzurlu…
@@ -337,56 +442,83 @@ Sen sevginin en güzel halisin ve iyi ki benimsin.
 
 SENİ ÇOOO..OOOKK SEVİYORUM.. 💖`;
 
-function typeSlow(){
-  if(typing) return;
-  typing=true;
-  typed.textContent="";
-  const parts=text.split(/(\s+)/);
-  let i=0;
-  function step(){
-    if(!document.body.classList.contains("open")){typing=false;return}
-    if(i<parts.length){
-      typed.textContent+=parts[i++];
-      // ✅ daha yavaş
-      timer=setTimeout(step,150+Math.random()*90);
+  function typeSlow(){
+    if(typing) return;
+    typing=true;
+    typed.textContent="";
+    const parts=text.split(/(\s+)/);
+    let i=0;
+
+    function step(){
+      if(!document.body.classList.contains("open")){ typing=false; return; }
+      if(i<parts.length){
+        typed.textContent += parts[i++];
+        timer = setTimeout(step, 160 + Math.random()*110); // yavaş
+      }else{
+        typing=false;
+      }
     }
+    step();
   }
-  step();
-}
 
-playBtn.onclick=async()=>{
-  try{
-    if(!playing){
-      bgm.muted=false;
-      bgm.volume=1.0;
-      await bgm.play();
-      playing=true;
-      playText.textContent="Şarkımızı Durdur";
-      // ikon play->pause (basitçe text yeterli, istersen iconu da değiştiririm)
-    }else{
-      bgm.pause();
-      playing=false;
-      playText.textContent="Şarkımızı Aç";
+  function openLetter(){
+    document.body.classList.add("open");
+    typeSlow();
+  }
+  function closeLetter(){
+    document.body.classList.remove("open");
+    typing=false;
+    clearTimeout(timer);
+  }
+
+  openBtn.onclick = openLetter;
+  closeBtn.onclick = closeLetter;
+  overlay.onclick = closeLetter;
+
+  // ⏳ Sayaç (Yıl/Ay/Gün/Saat/Dk/Sn) — 25 Ağustos 2024 17:15
+  const yy=document.getElementById("yy");
+  const mo=document.getElementById("mo");
+  const dd=document.getElementById("dd");
+  const hh=document.getElementById("hh");
+  const mm=document.getElementById("mm");
+  const ss=document.getElementById("ss");
+
+  const start = new Date(2024, 7, 25, 17, 15, 0);
+
+  function diffYMDHMS(from, to){
+    let y = to.getFullYear() - from.getFullYear();
+    let m = to.getMonth() - from.getMonth();
+    let d = to.getDate() - from.getDate();
+    let H = to.getHours() - from.getHours();
+    let M = to.getMinutes() - from.getMinutes();
+    let S = to.getSeconds() - from.getSeconds();
+
+    if(S < 0){ S += 60; M -= 1; }
+    if(M < 0){ M += 60; H -= 1; }
+    if(H < 0){ H += 24; d -= 1; }
+
+    if(d < 0){
+      const prevMonthLastDay = new Date(to.getFullYear(), to.getMonth(), 0);
+      d += prevMonthLastDay.getDate();
+      m -= 1;
     }
-  }catch(e){
-    alert("🔊 Müzik başlamadı. Lütfen bir kez daha dokun 💖");
+    if(m < 0){ m += 12; y -= 1; }
+
+    return {y,m,d,H,M,S};
   }
-};
 
-openBtn.onclick=()=>{
-  document.body.classList.add("open");
-  typeSlow();
-};
-
-function closeModal(){
-  document.body.classList.remove("open");
-  typing=false;
-  clearTimeout(timer);
-}
-
-closeBtn.onclick=closeModal;
-overlay.onclick=closeModal;
+  function tick(){
+    const now = new Date();
+    const t = diffYMDHMS(start, now);
+    yy.textContent = t.y;
+    mo.textContent = t.m;
+    dd.textContent = t.d;
+    hh.textContent = String(t.H).padStart(2,"0");
+    mm.textContent = String(t.M).padStart(2,"0");
+    ss.textContent = String(t.S).padStart(2,"0");
+  }
+  tick();
+  setInterval(tick, 1000);
 </script>
-
 </body>
 </html>
